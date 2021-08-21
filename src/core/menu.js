@@ -1,5 +1,5 @@
 import { BackgroundModule } from '../modules/background.module';
-import { ClicksModule } from '../modules/clicks.module';
+import { ClicksModule } from '../modules/clickCounter/clicks.module';
 import { ShapeModule } from '../modules/shape.module';
 import { RandomSound } from '../modules/randomSound.module';
 import { Timer } from '../modules/timer.module';
