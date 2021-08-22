@@ -8,7 +8,7 @@ export class ClicksModule extends Module {
   #result;
   #doubleCount;
   #count;
-  #check;
+  check;
   #doubleStart;
   #start;
   #clickHandler;
@@ -17,7 +17,7 @@ export class ClicksModule extends Module {
   #btnClose;
   constructor(type, text) {
     super(type, text);
-    this.#check = true; // обработка ошибок
+    this.check = true; // обработка ошибок
     this.#count = -1;
     this.#doubleCount = 0;
     this.#container = this.#addDiv();
@@ -40,7 +40,7 @@ export class ClicksModule extends Module {
   }
 
   trigger() {
-    if (this.#check) {
+    if (this.check) {
       // try
       this.#clear(); // clear all div's
       this.#count = -1; //default meaning
@@ -51,6 +51,7 @@ export class ClicksModule extends Module {
           // check seconds
           alert('Время не должно быть больше 10 или меньше 0');
         } else {
+          const middle = ms;
           this.#fill(ms); // fill all div's
           setTimeout(() => {
             this.#animation();
@@ -61,8 +62,7 @@ export class ClicksModule extends Module {
             this.#time.innerText = ms;
           }, 990);
           setTimeout(() => {
-            // stop couting
-            this.#end(timeout);
+            this.#end(timeout, middle);
           }, Number(ms) * 1000);
         }
       } else {
@@ -78,14 +78,17 @@ export class ClicksModule extends Module {
     document.body.removeEventListener('dblclick', this.#doubleClickHandler);
   }
 
-  #end(timeout) {
-    this.#check = true;
+  #end(timeout, middle) {
+    this.check = true;
     this.#remove();
     clearInterval(timeout);
     this.#container.innerText = `Ваш результат одиночных кликов: ${this.#count}`;
     this.#doubleContainer.innerText = `Ваш результат двойных кликов: ${this.#doubleCount} `;
     this.#result.classList.add('result');
-    this.#result.innerText = `общее число кликов: ${this.#count + this.#doubleCount}`;
+    const summ = this.#count + this.#doubleCount;
+    this.#result.innerText = `Общее число кликов: ${summ}.Среднее кол-во кликов за секунду (${
+      summ ? Math.floor(summ / middle) : 0
+    })`;
     document.body.appendChild(this.#result);
     this.#time.innerText = 'Время вышло';
     this.#removeClasses();
@@ -94,10 +97,13 @@ export class ClicksModule extends Module {
       this.#clear();
     });
     this.#result.appendChild(this.#btnClose);
+    this.#back.addEventListener('contextmenu', () => {
+      this.#clear();
+    });
     document.body.appendChild(this.#back);
   }
   #fill(ms) {
-    this.#check = false;
+    this.check = false;
     this.#container.innerText = '0 одиночных кликов';
     this.#doubleContainer.innerText = '0 двойных кликов';
     this.#time.innerText = ms;
@@ -106,7 +112,7 @@ export class ClicksModule extends Module {
     document.body.addEventListener('dblclick', this.#doubleClickHandler);
   }
   #clear() {
-    const trash = document.querySelectorAll('div');
+    const trash = [this.#result, this.#time, this.#back];
     trash.forEach((item) => {
       return item.remove();
     });

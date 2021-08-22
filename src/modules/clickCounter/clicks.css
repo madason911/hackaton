@@ -10,12 +10,15 @@
   align-items: center;
   text-align: center;
   transition: all 400ms ease-in;
+  z-index: 900;
 }
 .first {
   left: -500px;
+  z-index: 900;
 }
 .second {
   right: -500px;
+  z-index: 900;
 }
 .time {
   background-color: darkblue;
@@ -29,12 +32,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 900;
 }
 .result {
   margin: 100px auto;
   background-color: darkblue;
   width: 300px;
-  height: 100px;
   color: #fff;
   font-size: 24px;
   border-radius: 10px;
@@ -44,7 +47,7 @@
   z-index: 1000;
   position: relative;
   flex-direction: column;
-  padding-top: 10px;
+  padding: 10px;
 }
 
 .first.active {
@@ -70,4 +73,6 @@
   background-color: red;
   padding: 10px;
   margin-top: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
 }

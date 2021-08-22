@@ -1,0 +1,29 @@
+.ball {
+  background-color: darkblue;
+  border-radius: 50%;
+}
+
+.triagure {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid;
+}
+.square {
+}
+
+.paral {
+  margin-left: 20px;
+  transform: skew(20deg);
+  background: #d4d5da;
+}
+
+.block {
+  position: absolute;
+  left: -1000px;
+  transition: all 300ms ease-in;
+}
+.oval {
+  border-radius: 100px/50px;
+}

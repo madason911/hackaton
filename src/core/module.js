@@ -1,6 +1,6 @@
-import { BackgroundModule } from '../modules/background.module';
-
 export class Module {
+  #type;
+  #text;
   constructor(type, text) {
     if (!type) {
       throw new Error('Please specify "type" param');
@@ -8,23 +8,15 @@ export class Module {
     if (!text) {
       throw new Error('Please specify "text" param');
     }
-    this.type = type;
-    this.text = text;
-  }
-
-  trigger(data) {
-    switch (data) {
-      case 'bgColor':
-        this.bgColor.trigger();
-        break;
-    }
+    this.#type = type;
+    this.#text = text;
   }
 
   toHTML() {
     const list = document.createElement('li');
     list.classList.add('menu-item');
-    list.dataset.type = this.type;
-    list.innerText = this.text;
+    list.dataset.type = this.#type;
+    list.innerText = this.#text;
     return list;
   }
 }
